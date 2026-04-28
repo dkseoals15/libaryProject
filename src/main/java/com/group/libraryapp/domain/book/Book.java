@@ -8,6 +8,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String name;
+
+    protected Book() {
+
+    }
+    public Book(String name) {
+        if(name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Book name cannot be null or blank");
+        }
+        this.name = name;
+    }
 }
