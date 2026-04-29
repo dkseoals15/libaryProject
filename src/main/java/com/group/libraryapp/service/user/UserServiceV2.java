@@ -1,7 +1,7 @@
 package com.group.libraryapp.service.user;
 
 import com.group.libraryapp.domain.user.User;
-import com.group.libraryapp.domain.user.UserRepository;
+import com.group.libraryapp.repository.user.UserRepository;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
@@ -42,11 +42,7 @@ public class UserServiceV2 {
 
     @Transactional
     public void deleteUser(String name) {
-        User user = userRepository.findByName(name);
-        if (user ==null) {
-            throw new IllegalArgumentException("User not found");
-
-        }
+        User user = userRepository.findByName(name).orElseThrow(IllegalArgumentException::new);
         userRepository.delete(user);
     }
 }
